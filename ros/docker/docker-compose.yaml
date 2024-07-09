@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  pav_container:
+    image: pytorch/pytorch:2.3.1-cuda12.1-cudnn8-devel
+    container_name: pav_container
+    privileged: true
+    network_mode: host
+    volumes:
+      - /dev:/dev
+      - ../packages:/dev_ws/src
+    devices:
+      - /dev/bus/usb
+      - /dev/snd
+    runtime: nvidia
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      stack:
+        soft: 67108864
+        hard: 67108864
+    working_dir: /dev_ws/
+    stdin_open: true
+    # tty: true
+    entrypoint:
+      - '/bin/bash'
