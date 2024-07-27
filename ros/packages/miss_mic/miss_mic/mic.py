@@ -22,10 +22,13 @@ class MicrophonePublisher(Node):
         rate = 16000
         self.chunk = 1280
         self.p = pyaudio.PyAudio()
-        self.list_devices()
+        id_2 = self.list_devices()
 
-        self.mic_stream = self.p.open(format=format, channels=channels, rate=rate, input=True, frames_per_buffer=self.chunk, input_device_index=self.input_device)
-
+        try:
+            self.mic_stream = self.p.open(format=format, channels=channels, rate=rate, input=True, frames_per_buffer=self.chunk, input_device_index=self.input_device)
+        except:
+            self.get_logger().info(f"Device {self.input_device} not found. Using default device: {id_2}")
+            self.mic_stream = self.p.open(format=format, channels=channels, rate=rate, input=True, frames_per_buffer=self.chunk, input_device_index=id_2)
 
         self.get_logger().info(f"Recording ...")
 
@@ -46,6 +49,8 @@ class MicrophonePublisher(Node):
             device_info = self.p.get_device_info_by_index(i)
             if device_info["maxInputChannels"] > 0:
                 self.get_logger().info(f"ID: {device_info['index']}, Nome: {device_info['name']}")
+                return_id = device_info['index']
+        return return_id
 
 
 def main(args=None):

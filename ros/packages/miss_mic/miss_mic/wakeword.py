@@ -46,6 +46,7 @@ class WakeWord(Node):
 
             if result >= 0:
                 self.get_logger().info('Detected MISS PIGGY!')
+                
         except KeyboardInterrupt:
             self.get_logger().info('Saving')
 

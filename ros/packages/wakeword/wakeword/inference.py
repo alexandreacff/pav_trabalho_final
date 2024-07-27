@@ -21,7 +21,7 @@ class WakeWord(Node):
 
         self.publisher = self.create_publisher(Bool, 'wakeword_status', 10)
 
-        self.declare_parameter("model", 'hey_jarvis_v0.1.onnx')
+        self.declare_parameter("model", 'hey_gre_is.onnx')
         model_path = os.path.join(get_package_share_directory('wakeword'), 'config', self.get_parameter(
             "model").get_parameter_value().string_value)
         self.get_logger().info(f"Model path: {model_path}")
