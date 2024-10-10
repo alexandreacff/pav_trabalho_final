@@ -31,6 +31,7 @@ docker run -it --name pav_container \
   --runtime nvidia \
   --ulimit memlock=-1:-1   --ulimit stack=67108864:67108864 \
   --workdir /dev_ws/ \
+  --volume $PWD/packages:/dev_ws/src/
   alexandreacff/yollov8-ros-foxy:tensorrt-ros 
 ```
 
