@@ -38,6 +38,9 @@ docker run -it --name pav_container \
 ### 3. Instalar requirements
 
 ```bash
+apt update
+apt-get install python3-pyaudio -y
+pip install openwakeword==0.5.0
 
 ```
 
@@ -46,25 +49,32 @@ docker run -it --name pav_container \
 Após compilar o workspace, rode o comando abaixo para adicionar os pacotes ao ambiente:
 
 ```bash
-source devel/setup.bash
+source /opt/ros/foxy/setup.bash
+source install/setup.bash
 ```
 
 ## Como usar
 
 ### 1. Executar o nó
 
-Inicie o nó principal com o seguinte comando:
+Inicie o nó que captura o mic com o seguinte comando:
 
 ```bash
-roslaunch nome_do_pacote nome_do_arquivo.launch
+ros2 run miss_mic mic
 ```
 
-### 2. Exemplos de execução
-
-Descreva aqui como utilizar as funcionalidades do projeto.
+Inicie o nó de wakeword com o seguinte comando:
 
 ```bash
-rosrun nome_do_pacote nome_do_no
+ros2 run wakeword inference
+```
+
+### 2. Visualizar tópicos
+
+Pode verificar os topicos que estão sendo publicados.
+
+```bash
+ros2 topic list 
 ```
 
 ## Estrutura do Repositório
@@ -72,18 +82,7 @@ rosrun nome_do_pacote nome_do_no
 Explique brevemente a organização do repositório.
 
 ```
-├── src/                    # Código fonte
-├── launch/                 # Arquivos de launch
-├── config/                 # Arquivos de configuração
+├── ROS/                    # Códigos ros e documentação docker
+├── POC/                    # Scripts python feito para desenvolver a POC do trabalho
 └── README.md               # Documentação
-```
-
-## Testes
-
-### Testes unitários
-
-Instruções para executar os testes unitários:
-
-```bash
-rostest nome_do_pacote nome_do_teste.test
 ```
