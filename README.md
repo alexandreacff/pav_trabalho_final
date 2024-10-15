@@ -24,7 +24,7 @@ cd pav_trabalho_final/ros
 Utilize o `docker`:
 
 ```bash
-docker run -it --name pav_container \
+docker run -it --rm --name pav_container \
   --privileged  \
   --network host \
   --volume /dev:/dev \
@@ -44,11 +44,12 @@ pip install openwakeword==0.5.0
 
 ```
 
-### 4. Fonte do setup.bash
+### 4. Configurando ambiente ROS
 
 Após compilar o workspace, rode o comando abaixo para adicionar os pacotes ao ambiente:
 
 ```bash
+colcon build --symlink-install
 source /opt/ros/foxy/setup.bash
 source install/setup.bash
 ```
